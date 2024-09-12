@@ -105,6 +105,12 @@
         "noAddressProvided": "لم يتم تقديم العنوان",
         "noCountryProvided": "لم يتم تقديم الدولة",
         "noCityProvided": "لم يتم تقديم المدينة",
-        "notification": "الاشعارات"
+        "notification": "الاشعارات",
+        "delete_account": "حذف الحساب",
+        "confirm_delete_account": "هل تريد حذف حسابك؟",
+        "delete_account_warning": "سوف تحذف جميع البيانات الخاصة بك. هذا لا يمكن التراجع عنه.",
+        "account_deleted": "تم حذف حسابك",
+        "error_deleting_account": "حدث خطأ عند حذف حسابك",
+        "confirm": "تأكيد"
     }
 }

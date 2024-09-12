@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import ar from './ar.json';
-import curdi from './curdi.json';
+import ku from './ku.json';
 
 i18n.use(initReactI18next).init({
     compatibilityJSON: 'v3',
@@ -9,7 +9,7 @@ i18n.use(initReactI18next).init({
     fallbackLng: 'ar',
     resources: {
         ar: ar,
-        curdi: curdi,
+        curdi: ku,
     },
     interpolation: {
         escapeValue: false // react already safes from xss

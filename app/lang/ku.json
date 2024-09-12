@@ -105,6 +105,12 @@
         "noAddressProvided": "هەچ ناڤانی نەبێهین",
         "noCountryProvided": "هەچ ولاتی نەبێهین",
         "noCityProvided": "هەچ شارێکی نەبێهین",
-        "notification": "نوتیفیکیشن"
+        "notification": "نوتیفیکیشن",
+        "delete_account": "ڕێکساکە بەڕێسەیە",
+        "confirm_delete_account": "ڕێکساکە بەڕێسەیە؟",
+        "delete_account_warning": "هەڵانەیەکە بەڕێسەیە. ڕێکساکە بەڕێسەیە؟",
+        "account_deleted": "تم حذف حسابك",
+        "error_deleting_account": "حدث خطأ عند حذف حسابك",
+        "confirm": "تأكيد"
     }
 }

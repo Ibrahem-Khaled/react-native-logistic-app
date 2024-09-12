@@ -11,7 +11,7 @@ import { Picker } from '@react-native-picker/picker';
 
 const Profile = () => {
     const { t } = useTranslation();
-    const { user, updateUser, token } = useContext(AuthContext);
+    const { user, updateUser, token, logout } = useContext(AuthContext);
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(user.name || '');
     const [email, setEmail] = useState(user.email || '');
@@ -21,13 +21,13 @@ const Profile = () => {
     const [city, setCity] = useState(user.city || '');
     const [workType, setWorkType] = useState(user.type_of_work || '');
     const [modalVisible, setModalVisible] = useState(false);
+    const [deleteModalVisible, setDeleteModalVisible] = useState(false); // Delete modal visibility
     const [currentPassword, setCurrentPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSave = () => {
         updateUser(name, email, phone, address, country, city, workType, token);
-        //setIsEditing(false);
     };
 
     const handleChangePassword = async () => {
@@ -37,7 +37,7 @@ const Profile = () => {
         }
 
         try {
-            const response = await axios.post(
+            await axios.post(
                 `${baseURL}/api/change-password`,
                 {
                     old_password: currentPassword,
@@ -45,11 +45,21 @@ const Profile = () => {
                 },
                 { headers: { Authorization: `Bearer ${token}` } }
             );
-
             setModalVisible(false);
             Alert.alert(t('success_change'));
         } catch (error) {
             Alert.alert(t('error_change'));
+        }
+    };
+
+    const handleDeleteAccount = async () => {
+        try {
+            await axios.post(`${baseURL}/api/deleteAccount`, {}, { headers: { Authorization: `Bearer ${token}` } });
+            setDeleteModalVisible(false);
+            logout();
+            Alert.alert(t('account_deleted'));
+        } catch (error) {
+            Alert.alert(t('error_deleting_account'));
         }
     };
 
@@ -187,9 +197,18 @@ const Profile = () => {
                                 <Ionicons name="key" size={24} color="#fff" />
                                 <Text style={styles.editButtonText}>{t('change_password')}</Text>
                             </TouchableOpacity>
+                            <TouchableOpacity
+                                style={[styles.editButton, { backgroundColor: '#f44336' }]}
+                                onPress={() => setDeleteModalVisible(true)}
+                            >
+                                <Ionicons name="trash-outline" size={24} color="#fff" />
+                                <Text style={styles.editButtonText}>{t('delete_account')}</Text>
+                            </TouchableOpacity>
                         </>
                     )}
                 </View>
+
+                {/* Change Password Modal */}
                 <Modal
                     animationType="fade"
                     transparent={true}
@@ -230,6 +249,32 @@ const Profile = () => {
                                 <TouchableOpacity
                                     style={[styles.saveButton, { backgroundColor: '#ddd' }]}
                                     onPress={() => setModalVisible(false)}
+                                >
+                                    <Text style={[styles.saveButtonText, { color: '#333' }]}>{t('cancel')}</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </Modal>
+
+                {/* Delete Account Confirmation Modal */}
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={deleteModalVisible}
+                    onRequestClose={() => setDeleteModalVisible(false)}
+                >
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalContent}>
+                            <Text style={styles.modalTitle}>{t('confirm_delete_account')}</Text>
+                            <Text style={styles.modalDescription}>{t('delete_account_warning')}</Text>
+                            <View style={styles.buttonRow}>
+                                <TouchableOpacity style={styles.saveButton} onPress={handleDeleteAccount}>
+                                    <Text style={styles.saveButtonText}>{t('confirm')}</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={[styles.saveButton, { backgroundColor: '#ddd' }]}
+                                    onPress={() => setDeleteModalVisible(false)}
                                 >
                                     <Text style={[styles.saveButtonText, { color: '#333' }]}>{t('cancel')}</Text>
                                 </TouchableOpacity>
@@ -311,7 +356,6 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 16,
         margin: 10,
-
     },
     buttonRow: {
         flexDirection: 'row',
@@ -371,5 +415,12 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
         fontFamily: 'Cairo-SemiBold',
+    },
+    modalDescription: {
+        fontSize: 16,
+        color: '#666',
+        textAlign: 'center',
+        marginBottom: 20,
+        fontFamily: 'Cairo-Regular',
     },
 });
