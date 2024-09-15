@@ -1,18 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, Alert } from 'react-native';
 import { AuthContext } from '../../Context/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 const Login = () => {
-    const [email, setEmail] = useState('admin@example.com');
-    const [password, setPassword] = useState('123456');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const { login, isLoading } = useContext(AuthContext);
     const nav = useNavigation();
     const { t } = useTranslation();
 
     const handleLogin = async () => {
+        if (email == '' || password == '') {
+            Alert.alert('خطأ', 'الرجاء تعبئة جميع الحقول');
+            return;
+        }
         try {
             await login(email, password);
         } catch (err) {
