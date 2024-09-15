@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import { baseURL } from '../../env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Alert } from 'react-native';
 
 export const AuthContext = createContext<any | undefined>(undefined);
 
@@ -21,6 +22,7 @@ export const AuthProvider = ({ children }) => {
             setUser(user);
         } catch (error) {
             console.error('Login failed:', error);
+            Alert.alert('فشل تسجيل الدخول', 'البريد الإلكتروني أو كلمة المرور غير صالحة');
         } finally {
             setIsLoading(false);
         }
