@@ -1,16 +1,38 @@
 {
   "cli": {
-    "version": ">= 5.9.1"
+    "version": ">= 11.0.2"
   },
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "development",
+      "ios": {
+        "autoIncrement": true
+      },
+      "android": {
+        "autoIncrement": true
+      }
     },
     "preview": {
-      "distribution": "internal"
+      "distribution": "internal",
+      "channel": "preview",
+      "ios": {
+        "autoIncrement": true
+      },
+      "android": {
+        "autoIncrement": true
+      }
     },
-    "production": {}
+    "production": {
+      "channel": "production",
+      "ios": {
+        "autoIncrement": true
+      },
+      "android": {
+        "autoIncrement": true
+      }
+    }
   },
   "submit": {
     "production": {}

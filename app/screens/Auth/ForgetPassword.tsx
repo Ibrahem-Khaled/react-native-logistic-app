@@ -9,7 +9,7 @@ const ForgotPassword = () => {
 
     return (
         <View style={styles.container}>
-            <Image source={require('../../images/logo-white.jpeg')} resizeMode='contain' style={styles.logo} />
+            <Image source={require('../../images/logo-white.png')} resizeMode='contain' style={styles.logo} />
             <Text style={styles.title}>{t('forgotPassword')}</Text>
             <Text style={styles.subtitle}>{t('enterEmail')}</Text>
             <TextInput

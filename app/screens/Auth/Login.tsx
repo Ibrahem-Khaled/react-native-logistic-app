@@ -26,7 +26,7 @@ const Login = () => {
 
     return (
         <View style={styles.container}>
-            <Image source={require('../../images/logo-white.jpeg')} resizeMode='contain' style={styles.logo} />
+            <Image source={require('../../images/logo-white.png')} resizeMode='contain' style={styles.logo} />
             <Text style={styles.title}>{t('login_title')}</Text>
             {error ? <Text style={styles.error}>{error}</Text> : null}
 

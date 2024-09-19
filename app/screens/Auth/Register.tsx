@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView, Platform } from 'react-native';
 import { AuthContext } from '../../Context/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
@@ -45,7 +45,7 @@ const SignUp = () => {
 
     return (
         <ScrollView keyboardShouldPersistTaps="handled" style={styles.container}>
-            <Image source={require('../../images/logo-white.jpeg')} resizeMode='contain' style={styles.logo} />
+            <Image source={require('../../images/logo-white.png')} resizeMode='contain' style={styles.logo} />
             <Text style={styles.title}>{t('signUp')}</Text>
             {error ? <Text style={styles.errorText}>{error}</Text> : null}
             <TextInput
@@ -94,7 +94,7 @@ const SignUp = () => {
             />
             <Picker
                 selectedValue={workType}
-                style={styles.input}
+                style={Platform.OS === 'android' ? styles.input : {}}
                 onValueChange={(itemValue) => setWorkType(itemValue)}
             >
                 <Picker.Item label={'تاجر'} value="تاجر" />
@@ -185,5 +185,6 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         textAlign: 'center',
         paddingVertical: 20,
+        marginVertical: 20,
     },
 });

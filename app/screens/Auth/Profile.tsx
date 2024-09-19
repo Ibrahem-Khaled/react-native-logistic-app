@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, TextInput, Alert, Modal, ScrollView, Platform } from 'react-native';
 import { FontAwesome, MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { HeaderBack } from '../../components/Header';
@@ -138,7 +138,7 @@ const Profile = () => {
                                 <MaterialIcons name="business-center" size={24} color="#333" />
                                 <Picker
                                     selectedValue={workType}
-                                    style={styles.picker}
+                                    style={Platform.OS === 'android' ? styles.picker : {}}
                                     onValueChange={(itemValue) => setWorkType(itemValue)}
                                 >
                                     <Picker.Item label={'تاجر'} value="تاجر" />
