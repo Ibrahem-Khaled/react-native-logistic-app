@@ -33,3 +33,7 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# firebase data
+alfuttaim-line-firebase-adminsdk-r9g4l-cbfc55ea96.json
+google-services.json

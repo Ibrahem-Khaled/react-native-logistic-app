@@ -1,23 +1,59 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { AntDesign, FontAwesome, Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
+import axios from 'axios';
+import { baseURL } from '../../env';
 
 export function Header({ openSideBar }) {
-    const nav = useNavigation();
+    const nav = useNavigation<any>();
+    const [notificationCount, setNotificationCount] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const getNotificationCount = () => {
+        axios.get(`${baseURL}/api/notificatins/count`)
+            .then((res) => {
+                setNotificationCount(res.data);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    };
+
+    useEffect(() => {
+        getNotificationCount();
+    }, []);
+
     return (
         <View style={styles.header}>
             <TouchableOpacity onPress={() => openSideBar()}>
                 <FontAwesome name="bars" size={24} color="#fff" />
             </TouchableOpacity>
+
             <Image source={require('../images/logo.png')} style={{ width: 50, height: 50 }} resizeMode='contain' />
-            <FontAwesome onPress={() => nav.navigate('NotificationScreen')} name="bell" size={24} color="#fff" />
+
+            <View style={styles.notificationIconContainer}>
+                <TouchableOpacity onPress={() => nav.navigate('NotificationScreen')}>
+                    <FontAwesome name="bell" size={24} color="#fff" />
+                </TouchableOpacity>
+
+                {loading ? (
+                    <ActivityIndicator size="small" color="#fff" style={styles.loadingIndicator} />
+                ) : (
+                    notificationCount > 0 && (
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>{notificationCount}</Text>
+                        </View>
+                    )
+                )}
+            </View>
         </View>
-    )
+    );
 }
 
 export function HeaderBack({ name }) {
-    const nav = useNavigation();
+    const nav = useNavigation<any>();
     return (
         <View style={[styles.header, { borderBottomLeftRadius: 0, borderBottomRightRadius: 0, borderRadius: 10 }]}>
             <AntDesign onPress={() => nav.goBack()} name="arrowleft" size={24} color="#fff" />
@@ -44,5 +80,29 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+    },
+    notificationIconContainer: {
+        position: 'relative',
+    },
+    badge: {
+        position: 'absolute',
+        right: -6,
+        top: -6,
+        backgroundColor: 'red',
+        borderRadius: 10,
+        width: 20,
+        height: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    badgeText: {
+        color: '#fff',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+    loadingIndicator: {
+        position: 'absolute',
+        right: -8,
+        top: -8,
     },
 })

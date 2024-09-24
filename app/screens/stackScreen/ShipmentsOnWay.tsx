@@ -33,11 +33,7 @@ const ShipmentsList = () => {
     const fetchAllShipment = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`${baseURL}/api/all-shipments`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await axios.get(`${baseURL}/api/all-shipments`);
             setData(response.data);
             setIsLoading(false);
         } catch (error) {

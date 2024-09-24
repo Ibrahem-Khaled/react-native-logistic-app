@@ -43,9 +43,7 @@ const ContactUs = () => {
                 cartonsCount,
                 pickupLocation,
                 deliveryLocation,
-            }, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
+            },);
             console.log(response.data);
             alert(t('successMessage'));
             setSize('');

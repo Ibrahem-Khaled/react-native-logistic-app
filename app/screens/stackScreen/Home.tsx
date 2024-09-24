@@ -27,11 +27,7 @@ const Home = ({ openSideBar }) => {
     const fetchShipment = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.get(`${baseURL}/api/shipments`, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await axios.get(`${baseURL}/api/shipments`,);
             setData(response.data);
             setIsLoading(false);
         } catch (error) {

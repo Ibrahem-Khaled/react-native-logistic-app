@@ -69,7 +69,7 @@ const Profile = () => {
                 <HeaderBack name={t('profile')} />
                 <View style={styles.profileHeader}>
                     <Image
-                        source={user.avatar ? { uri: user.avatar } : { uri: 'https://cdn-icons-png.flaticon.com/128/16869/16869838.png' }}
+                        source={user.avatar ? { uri: `${baseURL}/public/storage/${user?.avatar}` } : { uri: 'https://cdn-icons-png.flaticon.com/128/16869/16869838.png' }}
                         style={styles.avatar}
                     />
                     <Text style={styles.name}>{name}</Text>

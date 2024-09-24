@@ -8,6 +8,7 @@ import Home from '../screens/stackScreen/Home';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
 import '../lang/i18n';
+import { baseURL } from '../../env';
 
 const DrawerNav = () => {
     const { user, logout, token } = React.useContext(AuthContext);
@@ -36,7 +37,7 @@ const DrawerNav = () => {
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfo}>
                         <Image
-                            source={{ uri: user?.avatar || 'https://cdn-icons-png.flaticon.com/128/16869/16869838.png' }}
+                            source={{ uri: `${baseURL}/public/storage/${user?.avatar}` || 'https://cdn-icons-png.flaticon.com/128/16869/16869838.png' }}
                             style={styles.avatar}
                         />
                         <Text style={styles.userName}>{user?.name || 'Guest'}</Text>

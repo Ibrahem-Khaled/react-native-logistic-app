@@ -93,8 +93,9 @@ export const AuthProvider = ({ children }) => {
         try {
             const storedToken = await AsyncStorage.getItem('token');
             if (storedToken) {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
                 setToken(storedToken);
-                const response = await axios.get(`${baseURL}/api/user`, { headers: { Authorization: `Bearer ${storedToken}` } })
+                const response = await axios.get(`${baseURL}/api/user`)
                 setUser(response.data);
             }
         } catch (error) {
@@ -109,9 +110,7 @@ export const AuthProvider = ({ children }) => {
         try {
             const storedToken = await AsyncStorage.getItem('token');
             if (storedToken) {
-                const response = await axios.post(`${baseURL}/api/update`, { expo_push_token: expoToken }, {
-                    headers: { Authorization: `Bearer ${storedToken}` },
-                });
+                const response = await axios.post(`${baseURL}/api/update`, { expo_push_token: expoToken });
                 console.log('Expo token sent successfully: sent expo token');
             }
         } catch (error) {

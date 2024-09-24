@@ -25,7 +25,10 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.ebrahem_khaled3.FIC",
-      "versionCode": 3
+      "versionCode": 3,
+      "useNextNotificationsApi": true,
+      "googleServicesFile": "./google-services.json"
+
     },
     "web": {
       "favicon": "./assets/favicon.png"
