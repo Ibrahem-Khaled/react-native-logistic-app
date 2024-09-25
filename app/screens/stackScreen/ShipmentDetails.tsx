@@ -10,11 +10,11 @@ import Loading from '../../components/Loading';
 
 const ShipmentDetails = ({ route }) => {
     const { shipment } = route.params;
-    const { user } = useContext(AuthContext);
+    const { user, token } = useContext(AuthContext);
     const { t, i18n } = useTranslation();
     const [translatedShipment, setTranslatedShipment] = useState(shipment);
     const [loading, setLoading] = useState(false);
-
+    console.log(token)
     const translateKurdish = async (text) => {
         try {
             const result = await translate(text, { to: 'ckb', from: 'auto' });
@@ -139,7 +139,7 @@ const ShipmentDetails = ({ route }) => {
                                 <Text style={styles.timelineText}>{loc.region || 'N/A'}</Text>
                                 <Text style={styles.timelineText}>{loc.region || 'N/A'}</Text>
                                 <Text style={styles.timelineText}>{loc.address || 'N/A'}</Text>
-                                <Text style={styles.timelineText}>{loc.created_at.slice(0, 10) || 'N/A'}</Text>
+                                <Text style={styles.timelineText}>{loc?.pivot?.expected_arrival_date?.slice(0, 10) || 'N/A'}</Text>
                             </View>
                             <View style={styles.timelineCircle} />
                             {index < translatedShipment.container.location.length - 1 && (
